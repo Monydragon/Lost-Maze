@@ -1,3 +1,16 @@
-[prompt 2] - Not Implemented
-[prompt 3] - Partially Implemented
+The section is statuses and format after a prompt is changed these update here in this document.
+
 [prompt 1] - Implemented
+Let's get player movement and controls working, I want WASD, ArrowKeys, Controller, Mouse CLick or Tap navigation for mobile.
+
+[prompt 2] - Implemented
+I Want to add procedural generation for the levels by default and MVP status will be endless and seed based randomized so I can replicate runs if needed.
+
+[prompt 3] - Implemented
+I want to add a "scare" screen and sound like scary maze for example not right away and this can be configured.
+
+[prompt 4] - Implemented
+I want to make every play-through unique and progressively harder there is progression feel but the goal of the game is to spook the player after a random amount of levels.
+
+[prompt 5] - Implemented
+Okay so talk about what was created previously. The scare is good timing was fine and that transitioned just fine. the problem is the strobe and photo sensitivity is a no go for those with Epilepsy and other conditions. no flashing.....
