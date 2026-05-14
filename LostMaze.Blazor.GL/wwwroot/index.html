@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#12202d" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Lost Maze</title>
+    <base href="./" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="LostMaze.styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="loading">
+            <div class="loading__content">
+                <div class="loading__mark">LM</div>
+                <div class="loading__caption">Lost Maze</div>
+                <div class="loading__status">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">x</a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        let animationFrameId = 0;
+        let resizeTimeoutId = 0;
+        let resizeRafId = 0;
+        let disposeResizeHandlers = null;
+
+        function getSafeAreaProbe() {
+            let probe = document.getElementById("safeAreaProbe");
+            if (probe) {
+                return probe;
+            }
+
+            probe = document.createElement("div");
+            probe.id = "safeAreaProbe";
+            probe.setAttribute("aria-hidden", "true");
+            probe.style.position = "fixed";
+            probe.style.left = "0";
+            probe.style.top = "0";
+            probe.style.visibility = "hidden";
+            probe.style.pointerEvents = "none";
+            probe.style.paddingTop = "env(safe-area-inset-top, 0px)";
+            probe.style.paddingRight = "env(safe-area-inset-right, 0px)";
+            probe.style.paddingBottom = "env(safe-area-inset-bottom, 0px)";
+            probe.style.paddingLeft = "env(safe-area-inset-left, 0px)";
+            document.body.appendChild(probe);
+            return probe;
+        }
+
+        function getSafeAreaInsets() {
+            const styles = window.getComputedStyle(getSafeAreaProbe());
+            return {
+                top: Math.max(0, Math.round(parseFloat(styles.paddingTop) || 0)),
+                right: Math.max(0, Math.round(parseFloat(styles.paddingRight) || 0)),
+                bottom: Math.max(0, Math.round(parseFloat(styles.paddingBottom) || 0)),
+                left: Math.max(0, Math.round(parseFloat(styles.paddingLeft) || 0))
+            };
+        }
+
+        function isMobileWebViewport(viewportWidth, viewportHeight) {
+            return window.matchMedia("(pointer: coarse)").matches ||
+                navigator.maxTouchPoints > 0 ||
+                Math.min(viewportWidth, viewportHeight) <= 915;
+        }
+
+        function setRotatePromptVisible(isVisible) {
+            const prompt = document.getElementById("rotatePrompt");
+            const holder = document.getElementById("canvasHolder");
+            prompt?.classList.toggle("is-visible", isVisible);
+            prompt?.setAttribute("aria-hidden", isVisible ? "false" : "true");
+            holder?.classList.toggle("is-portrait-blocked", isVisible);
+        }
+
+        function resizeCanvas() {
+            const canvas = document.getElementById("theCanvas");
+            const holder = document.getElementById("canvasHolder");
+            if (!canvas || !holder) {
+                return;
+            }
+
+            const viewport = window.visualViewport;
+            const safeArea = getSafeAreaInsets();
+            const viewportLeft = Math.round(viewport ? viewport.offsetLeft : 0);
+            const viewportTop = Math.round(viewport ? viewport.offsetTop : 0);
+            const viewportWidth = Math.max(1, Math.round(viewport ? viewport.width : window.innerWidth));
+            const viewportHeight = Math.max(1, Math.round(viewport ? viewport.height : window.innerHeight));
+            const isLandscape = viewportWidth >= viewportHeight;
+            const showRotatePrompt = isMobileWebViewport(viewportWidth, viewportHeight) && !isLandscape;
+
+            holder.style.left = `${viewportLeft}px`;
+            holder.style.top = `${viewportTop}px`;
+            holder.style.width = `${viewportWidth}px`;
+            holder.style.height = `${viewportHeight}px`;
+            canvas.style.width = `${viewportWidth}px`;
+            canvas.style.height = `${viewportHeight}px`;
+
+            if (canvas.width !== viewportWidth) {
+                canvas.width = viewportWidth;
+            }
+
+            if (canvas.height !== viewportHeight) {
+                canvas.height = viewportHeight;
+            }
+
+            setRotatePromptVisible(showRotatePrompt);
+            window.theInstance?.invokeMethodAsync(
+                "UpdateSafeAreaInsets",
+                safeArea.left,
+                safeArea.top,
+                safeArea.right,
+                safeArea.bottom);
+        }
+
+        function scheduleResize() {
+            if (resizeRafId !== 0) {
+                window.cancelAnimationFrame(resizeRafId);
+            }
+
+            if (resizeTimeoutId !== 0) {
+                window.clearTimeout(resizeTimeoutId);
+            }
+
+            resizeRafId = window.requestAnimationFrame(() => {
+                resizeRafId = 0;
+                resizeCanvas();
+            });
+            resizeTimeoutId = window.setTimeout(() => {
+                resizeTimeoutId = 0;
+                resizeCanvas();
+            }, 80);
+        }
+
+        function tickJS() {
+            window.theInstance?.invokeMethod("TickDotNet");
+            animationFrameId = window.requestAnimationFrame(tickJS);
+        }
+
+        window.initRenderJS = (instance) => {
+            window.theInstance = instance;
+
+            const canvas = document.getElementById("theCanvas");
+            canvas?.addEventListener("contextmenu", event => event.preventDefault());
+
+            const onResize = () => scheduleResize();
+            scheduleResize();
+            window.addEventListener("resize", onResize, { passive: true });
+            window.addEventListener("orientationchange", onResize, { passive: true });
+            window.visualViewport?.addEventListener("resize", onResize, { passive: true });
+            window.visualViewport?.addEventListener("scroll", onResize, { passive: true });
+
+            disposeResizeHandlers = () => {
+                window.removeEventListener("resize", onResize);
+                window.removeEventListener("orientationchange", onResize);
+                window.visualViewport?.removeEventListener("resize", onResize);
+                window.visualViewport?.removeEventListener("scroll", onResize);
+            };
+
+            if (animationFrameId === 0) {
+                animationFrameId = window.requestAnimationFrame(tickJS);
+            }
+        };
+
+        window.disposeRenderJS = () => {
+            disposeResizeHandlers?.();
+            disposeResizeHandlers = null;
+
+            if (resizeRafId !== 0) {
+                window.cancelAnimationFrame(resizeRafId);
+                resizeRafId = 0;
+            }
+
+            if (resizeTimeoutId !== 0) {
+                window.clearTimeout(resizeTimeoutId);
+                resizeTimeoutId = 0;
+            }
+        };
+
+        Blazor.start();
+
+        window.addEventListener("keydown", function (event) {
+            if ([32, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        });
+
+        window.addEventListener("wheel", function (event) {
+            event.preventDefault();
+        }, { passive: false });
+    </script>
+
+    <script src="_content/nkast.Wasm.JSInterop/js/JSObject.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Window.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Document.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Navigator.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Gamepad.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Media.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.XHR/js/XHR.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Canvas/js/Canvas.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Canvas/js/CanvasGLContext.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.Audio/js/Audio.8.0.11.js"></script>
+    <script src="_content/nkast.Wasm.XR/js/XR.8.0.11.js"></script>
+</body>
+</html>

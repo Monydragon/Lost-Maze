@@ -1,0 +1,65 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Aa]rtifacts/
+[Ll]og/
+[Ll]ogs/
+
+# Content pipeline / generated asset cache
+LostMazeContent/bin/
+LostMazeContent/obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userprefs
+*.pidb
+
+# IDE settings
+.vs/
+.vscode/
+.idea/
+
+# .NET / NuGet
+packages/
+TestResults/
+BenchmarkDotNet.Artifacts/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nuget.props
+*.nuget.targets
+
+# Local SDK/config state
+.config/
+.dotnet/
+
+# Blazor / frontend tool output
+node_modules/
+wwwroot/dist/
+dist/
+publish/
+
+# Android generated output
+*.apk
+*.ap_*
+*.aab
+*.dex
+*.class
+*.keystore
+*.jks
+*.db
+*.cache
+*.log
+*.bak
+*.tmp
+*.temp
+*.orig
+.gradle/
+
+# OS-generated files
+.DS_Store
+Thumbs.db

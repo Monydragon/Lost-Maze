@@ -1,0 +1,179 @@
+html,
+body,
+#app,
+.page,
+main
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+html,
+body
+{
+    margin: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: #12202d;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body
+{
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#app
+{
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.game-shell
+{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    touch-action: none;
+    background: #12202d;
+    transition: opacity 120ms ease;
+}
+
+.game-shell.is-portrait-blocked
+{
+    opacity: 0.18;
+}
+
+.game-canvas
+{
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+#loading
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    background: linear-gradient(180deg, #12202d 0%, #29403e 100%);
+    color: #f7f2d8;
+}
+
+.loading__content
+{
+    text-align: center;
+    width: min(82vw, 28rem);
+}
+
+.loading__mark
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+    border: 4px solid #e8ac53;
+    color: #e8ac53;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.loading__caption
+{
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.loading__status
+{
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.rotate-prompt
+{
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding:
+        max(16px, env(safe-area-inset-top))
+        max(16px, env(safe-area-inset-right))
+        max(16px, env(safe-area-inset-bottom))
+        max(16px, env(safe-area-inset-left));
+    background: rgba(18, 32, 45, 0.94);
+    color: #f7f2d8;
+    text-align: center;
+}
+
+.rotate-prompt.is-visible
+{
+    display: flex;
+}
+
+.rotate-prompt__panel
+{
+    max-width: 28rem;
+    padding: 1.25rem 1.1rem;
+    border: 2px solid rgba(232, 172, 83, 0.82);
+    background: #21333f;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.rotate-prompt__title
+{
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+}
+
+.rotate-prompt__body
+{
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+#blazor-error-ui
+{
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss
+{
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

@@ -1,0 +1,16 @@
+@page "/"
+@page "/index.html"
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Lost Maze</PageTitle>
+
+<div id="canvasHolder" class="game-shell">
+    <canvas id="theCanvas" class="game-canvas"></canvas>
+</div>
+
+<div id="rotatePrompt" class="rotate-prompt" aria-live="polite" aria-hidden="true">
+    <div class="rotate-prompt__panel">
+        <div class="rotate-prompt__title">Rotate To Landscape</div>
+        <div class="rotate-prompt__body">Lost Maze plays best in landscape on phones while the maze is taking shape.</div>
+    </div>
+</div>

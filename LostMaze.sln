@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LostMaze.Shared", "LostMaze.Shared\LostMaze.Shared.shproj", "{CB3A65A5-5C1E-42D8-BE74-1670BE5D4E89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LostMaze.Platforms", "LostMaze.Platforms", "{3BE6B132-502C-4BEE-9889-FFBC69194CA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostMaze.WinForms.DX11", "LostMaze.WinForms.DX11\LostMaze.WinForms.DX11.csproj", "{DC6364BD-8F8B-43B1-9D5A-68B78AB39809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostMaze.SDL2.GL", "LostMaze.SDL2.GL\LostMaze.SDL2.GL.csproj", "{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostMaze.Blazor.GL", "LostMaze.Blazor.GL\LostMaze.Blazor.GL.csproj", "{FA8120C3-F418-4B24-92A6-8F3F01527791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostMaze.Android.GL", "LostMaze.Android.GL\LostMaze.Android.GL.csproj", "{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC6364BD-8F8B-43B1-9D5A-68B78AB39809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC6364BD-8F8B-43B1-9D5A-68B78AB39809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC6364BD-8F8B-43B1-9D5A-68B78AB39809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC6364BD-8F8B-43B1-9D5A-68B78AB39809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8120C3-F418-4B24-92A6-8F3F01527791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8120C3-F418-4B24-92A6-8F3F01527791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8120C3-F418-4B24-92A6-8F3F01527791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8120C3-F418-4B24-92A6-8F3F01527791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC6364BD-8F8B-43B1-9D5A-68B78AB39809} = {3BE6B132-502C-4BEE-9889-FFBC69194CA9}
+		{2A0ED36C-A51D-4AD8-801F-2ACBF74E2633} = {3BE6B132-502C-4BEE-9889-FFBC69194CA9}
+		{FA8120C3-F418-4B24-92A6-8F3F01527791} = {3BE6B132-502C-4BEE-9889-FFBC69194CA9}
+		{B51F50DE-BD65-4B12-9DC6-5B8D6B0E36D2} = {3BE6B132-502C-4BEE-9889-FFBC69194CA9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D2CE2C1-A59E-4481-8F37-9EACF2B6B275}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		LostMaze.Shared\LostMaze.Shared.projitems*{cb3a65a5-5c1e-42d8-be74-1670be5d4e89}*SharedItemsImports = 13
+		LostMaze.Shared\LostMaze.Shared.projitems*{dc6364bd-8f8b-43b1-9d5a-68b78ab39809}*SharedItemsImports = 5
+		LostMaze.Shared\LostMaze.Shared.projitems*{b51f50de-bd65-4b12-9dc6-5b8d6b0e36d2}*SharedItemsImports = 5
+		LostMaze.Shared\LostMaze.Shared.projitems*{fa8120c3-f418-4b24-92a6-8f3f01527791}*SharedItemsImports = 5
+		LostMaze.Shared\LostMaze.Shared.projitems*{2a0ed36c-a51d-4ad8-801f-2acbf74e2633}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal
